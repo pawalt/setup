@@ -7,8 +7,9 @@
 
   home.stateVersion = "23.11";
 
-  # PROGRAM CONFIG
+  fonts.fontconfig.enable = true;
 
+  # PROGRAM CONFIG
   programs.git = {
     enable = true;
     userName  = "Peyton Walters";
@@ -36,12 +37,18 @@
     plugins = with pkgs; [
       vimPlugins.gruvbox
       vimPlugins.nerdtree
+      vimPlugins.vim-airline
+      vimPlugins.auto-pairs
+      vimPlugins.vim-devicons
     ];
 
     extraConfig = ''
       syntax enable
       colorscheme gruvbox
       set background=dark
+
+      " Airline symbols
+      let g:airline_powerline_fonts = 1
 
       set tabstop=2
       set shiftwidth=2
@@ -51,6 +58,8 @@
       
       " auto-open if no args are set
       autocmd VimEnter * if !argc() | NERDTree | endif
+      " close if only window left
+      autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
       " Nerdtree tab configuration
       function! IsNerdTreeEnabled()
@@ -86,6 +95,7 @@
 
     userSettings = {
       "keyboard.dispatch" = "keyCode";
+      "terminal.integrated.fontFamily" = "Hack Nerd Font";
     };
   };
 
@@ -126,6 +136,7 @@
     figlet
     bat
     gh
+    nerdfonts
 
     # go stuff
     go
