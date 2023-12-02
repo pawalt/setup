@@ -91,6 +91,7 @@
       golang.go
       ms-python.vscode-pylance
       redhat.vscode-yaml
+      github.copilot
     ];
 
     userSettings = {
@@ -119,6 +120,14 @@
         gia = "git commit --amend";
         gian = "git commit --amend --no-edit";
         upd = "git commit --amend --no-edit && git push -f";
+        gc = "git checkout";
+
+        gm = "git machete";
+        gmpr = "git machete github create-pr";
+
+        ".." = "cd ..";
+        "..." = "cd ../..";
+        "...." = "cd ../../..";
 
         switch = "home-manager switch --flake $HOME/projects/setup";
     };
@@ -137,12 +146,20 @@
     bat
     gh
     nerdfonts
+    git-machete
+
+    # make lol
+    gnumake
+    gcc
 
     # go stuff
     go
     gotools
     gopls
     golint
+
+    # node
+    nodejs
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
