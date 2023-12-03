@@ -97,6 +97,7 @@
     userSettings = {
       "keyboard.dispatch" = "keyCode";
       "terminal.integrated.fontFamily" = "Hack Nerd Font";
+      "workbench.colorTheme" = "Visual Studio Dark";
     };
   };
 
