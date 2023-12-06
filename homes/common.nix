@@ -60,7 +60,7 @@
       " navigation
       nnoremap <Space>j <C-W><C-J>
       nnoremap <Space>h <C-W><C-H>
-      nnoremap <Space>j <C-W><C-K>
+      nnoremap <Space>k <C-W><C-K>
       nnoremap <Space>l <C-W><C-L>
     '';
   };
@@ -80,6 +80,33 @@
       "keyboard.dispatch" = "keyCode";
       "terminal.integrated.fontFamily" = "Hack Nerd Font";
       "workbench.colorTheme" = "Visual Studio Dark";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+
+    settings = {
+      gcloud = {
+        disabled = true;
+      };
+
+      golang = {
+        symbol = "go ";
+      };
+
+      nodejs = {
+        disabled = true;
+      };
+
+      directory = {
+        fish_style_pwd_dir_length = 1;
+      };
+
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
     };
   };
 
@@ -115,7 +142,6 @@
     zplug = {
       enable = true;
       plugins = [
-        { name = "dracula/zsh"; tags = [ as:theme ]; }
         { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
         { name = "zsh-users/zsh-autosuggestions"; }
       ];
