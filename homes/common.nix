@@ -87,16 +87,11 @@
     enable = true;
 
     settings = {
-      gcloud = {
-        disabled = true;
-      };
+      gcloud.disabled = true;
+      nodejs.disabled = true;
 
       golang = {
         symbol = "go ";
-      };
-
-      nodejs = {
-        disabled = true;
       };
 
       directory = {
@@ -115,14 +110,18 @@
 
     shellAliases = {
         p = "ping";
-        rg = "grep -ir";
         pg = "ping google.com";
         p8 = "ping 8.8.8.8";
+
+        cat = "bat -P --style=plain";
+        rg = "grep -ir";
+
+        ls = "ls --color";
         l = "ls -CF";
         ll = "ls -alh";
+
         k = "kubectl";
         tf = "terraform";
-        cat = "bat -P --style=plain";
 
         gs = "git status";
         ga = "git add";
