@@ -1,32 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  # USER DATA
-  home.username = "peyton";
-  home.homeDirectory = "/home/peyton";
+  programs.home-manager.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   home.stateVersion = "23.11";
 
   fonts.fontconfig.enable = true;
 
   # PROGRAM CONFIG
-  programs.git = {
-    enable = true;
-    userName  = "Peyton Walters";
-    userEmail = "pawalt@hey.com";
-    extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
-      pull = {
-        rebase = true;
-      };
-      rebase = {
-        autostash = true;
-      };
-    };
-  };
-
   programs.neovim = {
     enable = true;
 
@@ -129,8 +111,6 @@
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
-
-        switch = "home-manager switch --flake $HOME/projects/setup";
     };
     zplug = {
       enable = true;
@@ -166,6 +146,4 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {};
-
-  programs.home-manager.enable = true;
 }

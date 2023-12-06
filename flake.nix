@@ -3,13 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager }:{
+  outputs = { self, nixpkgs, home-manager, nix-darwin }:{
     packages.aarch64-linux.hello = nixpkgs.legacyPackages.aarch64-linux.hello;
     packages.aarch64-linux.default = self.packages.aarch64-linux.hello;
 
@@ -20,8 +26,35 @@
           config.allowUnfree = true;
         };
         modules = [
-          ./home.nix
+          ./homes/common.nix
+          ./homes/asahi.nix
         ]; 
+      };
+    };
+
+    darwinConfigurations = let
+      system = "aarch64-darwin";
+    in {
+      "crlMBP-YV7QQ65WX2MzYw" = nix-darwin.lib.darwinSystem {
+        inherit system;
+
+        modules = [
+          ./darwin.nix
+          home-manager.darwinModules.home-manager
+          {
+            users.users.peyton = {
+              name = "peyton";
+              home = "/Users/peyton";
+            };
+
+            home-manager.users.peyton = {
+              imports = [
+                ./homes/common.nix
+                ./homes/crl.nix
+              ];
+            };
+          }
+        ];
       };
     };
   };
