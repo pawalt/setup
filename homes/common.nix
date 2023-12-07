@@ -92,7 +92,7 @@
 
     userSettings = {
       "keyboard.dispatch" = "keyCode";
-      "terminal.integrated.fontFamily" = "Hack Nerd Font";
+      "editor.fontFamily" = "Hack Nerd Font";
       "workbench.colorTheme" = "Gruvbox Dark (Medium)";
     };
   };
@@ -130,6 +130,7 @@
         p8 = "ping 8.8.8.8";
 
         cat = "bat -P --style=plain";
+        grep = "grep -n";
         rg = "grep -ir";
 
         ls = "ls --color";
@@ -154,12 +155,24 @@
         "..." = "cd ../..";
         "...." = "cd ../../..";
     };
+
     zplug = {
       enable = true;
       plugins = [
         { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
         { name = "zsh-users/zsh-autosuggestions"; }
       ];
+    };
+  };
+
+  programs.kitty = {
+    enable = true;
+    shellIntegration.enableZshIntegration = true;
+
+    theme = "Gruvbox Dark Hard";
+    font = {
+      name = "Hack Nerd Font";
+      size = 14;
     };
   };
 
