@@ -29,6 +29,8 @@
       colorscheme gruvbox
       set background=dark
 
+      set clipboard=unnamedplus
+
       " Airline symbols
       let g:airline_powerline_fonts = 1
 
