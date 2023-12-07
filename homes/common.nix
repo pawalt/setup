@@ -80,11 +80,8 @@
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Getting this sha is annoying. I just blanked it out, ran rebuild to
       # get the sha diff (which shows up in base64), then decode it with:
-      # ```python
-      # import base64
-      # text = b'DnwASBp1zvJluDc/yhSB87d0WM8PSbzqAvoICURw03c=' <- put in your sha
-      # print(base64.decodebytes(text).hex())
-      # ```
+      # echo "base64 hash here" | nix run nixpkgs#python3 -- -c "import base64; print(base64.decodebytes(input().encode('utf-8')).hex())"
+      # thanks to mr. davis for this incantation
       {
         name = "gruvbox-themes";
         publisher = "tomphilbin";
@@ -107,6 +104,7 @@
       aws.disabled = true;
       gcloud.disabled = true;
       nodejs.disabled = true;
+      rlang.disabled = true;
 
       golang = {
         symbol = "go ";
