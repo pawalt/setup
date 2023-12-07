@@ -16,9 +16,6 @@
   };
 
   outputs = { self, nixpkgs, home-manager, nix-darwin }:{
-    packages.aarch64-linux.hello = nixpkgs.legacyPackages.aarch64-linux.hello;
-    packages.aarch64-linux.default = self.packages.aarch64-linux.hello;
-
     homeConfigurations = {
       "peyton" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
@@ -27,6 +24,7 @@
         };
         modules = [
           ./homes/common.nix
+          ./homes/personal.nix
           ./homes/asahi.nix
         ]; 
       };
@@ -39,8 +37,8 @@
         inherit system;
 
         modules = [
-          ./darwin.nix
           home-manager.darwinModules.home-manager
+          ./darwin.nix
           {
             users.users.peyton = {
               name = "peyton";
@@ -51,6 +49,30 @@
               imports = [
                 ./homes/common.nix
                 ./homes/crl.nix
+                ./homes/darwin.nix
+              ];
+            };
+          }
+        ];
+      };
+
+      "Peytons-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+        inherit system;
+
+        modules = [
+          home-manager.darwinModules.home-manager
+          ./darwin.nix
+          {
+            users.users.peytonwalters = {
+              name = "peytonwalters";
+              home = "/Users/peytonwalters";
+            };
+
+            home-manager.users.peytonwalters = {
+              imports = [
+                ./homes/common.nix
+                ./homes/personal.nix
+                ./homes/darwin.nix
               ];
             };
           }

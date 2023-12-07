@@ -67,6 +67,7 @@
 
   programs.vscode = {
     enable = true;
+
     extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
       bbenoist.nix 
@@ -74,6 +75,7 @@
       ms-python.vscode-pylance
       redhat.vscode-yaml
       github.copilot
+      jdinhlife.gruvbox
     ];
 
     userSettings = {
@@ -87,6 +89,7 @@
     enable = true;
 
     settings = {
+      aws.disabled = true;
       gcloud.disabled = true;
       nodejs.disabled = true;
 
