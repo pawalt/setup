@@ -88,6 +88,12 @@
         version = "1.0.0";
         sha256 = "0e7c00481a75cef265b8373fca1481f3b77458cf0f49bcea02fa08094470d377";
       }
+      {
+        name = "vscode-pets";
+        publisher = "tonybaloney";
+        version = "1.25.1";
+        sha256 = "6acdded8bcca052b221acfd4188674e97a9b2e1dfb8ab0d4682cec96a2131094";
+      }
     ];
 
     userSettings = {
@@ -121,6 +127,10 @@
     };
   };
 
+  programs.htop = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
 
@@ -149,12 +159,16 @@
         gc = "git checkout";
 
         gm = "git machete";
-        gmpr = "git machete github create-pr";
+        gmpr = "git machete github create-pr --draft";
 
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
     };
+
+    initExtra = ''
+    neofetch
+    '';
 
     zplug = {
       enable = true;
@@ -163,6 +177,10 @@
         { name = "zsh-users/zsh-autosuggestions"; }
       ];
     };
+  };
+
+  services.syncthing = {
+    enable = true;
   };
 
   programs.kitty = {
@@ -182,6 +200,7 @@
     gh
     nerdfonts
     git-machete
+    neofetch
 
     # make lol
     gnumake
