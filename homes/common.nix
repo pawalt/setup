@@ -75,13 +75,26 @@
       ms-python.vscode-pylance
       redhat.vscode-yaml
       github.copilot
-      jdinhlife.gruvbox
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      # Getting this sha is annoying. I just blanked it out, ran rebuild to
+      # get the sha diff (which shows up in base64), then decode it with:
+      # ```python
+      # import base64
+      # text = b'DnwASBp1zvJluDc/yhSB87d0WM8PSbzqAvoICURw03c=' <- put in your sha
+      # print(base64.decodebytes(text).hex())
+      # ```
+      {
+        name = "gruvbox-themes";
+        publisher = "tomphilbin";
+        version = "1.0.0";
+        sha256 = "0e7c00481a75cef265b8373fca1481f3b77458cf0f49bcea02fa08094470d377";
+      }
     ];
 
     userSettings = {
       "keyboard.dispatch" = "keyCode";
       "terminal.integrated.fontFamily" = "Hack Nerd Font";
-      "workbench.colorTheme" = "Visual Studio Dark";
+      "workbench.colorTheme" = "Gruvbox Dark (Medium)";
     };
   };
 
