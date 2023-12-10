@@ -18,6 +18,14 @@
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs = {
@@ -25,7 +33,8 @@
     nixpkgs,
     home-manager,
     nix-darwin,
-    nixos-apple-silicon
+    nixos-apple-silicon,
+    plasma-manager
   }: {
     darwinConfigurations = let
       system = "aarch64-darwin";
@@ -100,6 +109,7 @@
 
             home-manager.users.peyton = {
               imports = [
+                plasma-manager.homeManagerModules.plasma-manager
                 ./homes/common.nix
                 ./homes/personal.nix
                 ./homes/asahi.nix

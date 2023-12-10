@@ -58,13 +58,14 @@
     settings = {
       devices = {
         "iphone" = { id = "5YRXT5Z-KEGT5DW-VBH6EAR-YDQPFMW-LCUKH2X-QPKHWXH-BYAVZGR-LODC4AI"; };
+        "crlmbp" = { id = "TGGH4PO-YTTK7W3-SDFYJNI-HPXZ5FC-SW364DR-JMQKI67-V4QFGAF-SJ6ZYQI"; };
       };
 
       folders = {
         # generic sync folder
         "cccjw-5fcyz" = {
           path = "/home/peyton/sync";
-          devices = [ "iphone" ];
+          devices = [ "iphone" "crlmbp" ];
         };
       };
     };
