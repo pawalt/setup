@@ -1,5 +1,5 @@
 {
-  description = "Peyton's nix config";
+  description = "Peyton's nix config. 2 macOS instances, one NixOS asahi instance.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
@@ -13,23 +13,20 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-apple-silicon = {
+      url = "github:tpwrules/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin }:{
-    homeConfigurations = {
-      "peyton" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "aarch64-linux";
-          config.allowUnfree = true;
-        };
-        modules = [
-          ./homes/common.nix
-          ./homes/personal.nix
-          ./homes/asahi.nix
-        ]; 
-      };
-    };
-
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nix-darwin,
+    nixos-apple-silicon
+  }: {
     darwinConfigurations = let
       system = "aarch64-darwin";
     in {
@@ -38,7 +35,7 @@
 
         modules = [
           home-manager.darwinModules.home-manager
-          ./darwin.nix
+          ./systems/darwin.nix
           {
             users.users.peyton = {
               name = "peyton";
@@ -61,7 +58,7 @@
 
         modules = [
           home-manager.darwinModules.home-manager
-          ./darwin.nix
+          ./systems/darwin.nix
           {
             users.users.peytonwalters = {
               name = "peytonwalters";
@@ -77,6 +74,43 @@
             };
           }
         ];
+      };
+    };
+
+    nixosConfigurations = {
+      macbox = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          nixos-apple-silicon.nixosModules.apple-silicon-support
+          ./systems/asahi.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            # Define a user account. Don't forget to set a password with ‘passwd’.
+            users.users.peyton = {
+              isNormalUser = true;
+              home = "/home/peyton";
+              extraGroups = [
+                "wheel"
+                "networkmanager"
+              ];
+            };
+
+            home-manager.users.peyton = {
+              imports = [
+                ./homes/common.nix
+                ./homes/personal.nix
+                ./homes/asahi.nix
+              ];
+            };
+          }
+        ];
+        specialArgs = {
+          inherit nixpkgs;
+          inherit nixos-apple-silicon;
+        };
       };
     };
   };

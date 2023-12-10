@@ -134,6 +134,8 @@
   programs.zsh = {
     enable = true;
 
+    defaultKeymap = "emacs";
+
     shellAliases = {
         p = "ping";
         pg = "ping google.com";
@@ -185,12 +187,15 @@
 
   programs.kitty = {
     enable = true;
-    shellIntegration.enableZshIntegration = true;
+    
+    shellIntegration = {
+      mode = "no-cursor";
+      enableZshIntegration = true;
+    };
 
     theme = "Gruvbox Dark Hard";
     font = {
       name = "Hack Nerd Font";
-      size = 14;
     };
   };
 

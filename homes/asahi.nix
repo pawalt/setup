@@ -1,11 +1,25 @@
 { config, pkgs, ... }:
 
 {
-  # USER DATA
-  home.username = "peyton";
-  home.homeDirectory = "/home/peyton";
-
  programs.zsh.shellAliases = {
-    switch = "home-manager switch --flake $HOME/projects/setup";
+    switch = "sudo nixos-rebuild switch --flake $HOME/projects/setup";
+  };
+
+  programs.chromium = {
+    enable = true;
+
+    extensions = [
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+      { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
+      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
+    ];
+  };
+
+  # intentionally small font cuz play with scaling
+  programs.kitty = {
+    font = {
+      size = 10;
+    };
   };
 }
+
