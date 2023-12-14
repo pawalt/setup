@@ -179,7 +179,6 @@
         p8 = "ping 8.8.8.8";
 
         cat = "bat -P --style=plain";
-        grep = "grep -n";
         rg = "grep -ir";
 
         ls = "ls --color";
@@ -206,6 +205,9 @@
     };
 
     initExtra = ''
+    # macos upgrades sometimes fuck the nix path so recover if that happens.
+    [[ ! $(command -v nix) && -e "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" ]] && source "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+
     neofetch
     '';
 
