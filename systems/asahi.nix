@@ -10,6 +10,7 @@
   hardware.asahi = {
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = ./firmware;
+    useExperimentalGPUDriver = true;
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -27,7 +28,12 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "electron-25.9.0"
+    ];
+  };
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   time.timeZone = "America/New_York";
@@ -94,6 +100,7 @@
     neovim
     wget
     lshw
+    wl-clipboard
   ];
 
   system.stateVersion = "23.11";

@@ -2,7 +2,11 @@
 
 {
   programs.zsh.shellAliases = {
-    switch = "sudo nixos-rebuild switch --flake $HOME/projects/setup";
+    # need to go impure because of experimental gpu drivers
+    # would love to do overlay but my computer shit the bed
+    # while rebuilding the world.
+    # https://github.com/tpwrules/nixos-apple-silicon/blob/14b327ca47703c376ebb82ba16dc42ca2baa57d8/apple-silicon-support/modules/mesa/default.nix#L55
+    switch = "sudo nixos-rebuild switch --impure --flake $HOME/projects/setup";
   };
 
   programs.chromium = {

@@ -2,7 +2,13 @@
 
 {
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "electron-25.9.0"
+    ];
+  };
 
   home.stateVersion = "23.11";
 
@@ -245,6 +251,7 @@
     nerdfonts
     git-machete
     neofetch
+    obsidian
 
     # make lol
     gnumake
