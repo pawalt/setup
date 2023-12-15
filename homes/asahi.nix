@@ -53,4 +53,8 @@
       "kwinrc"."Xwayland"."Scale" = 2;
     };
   };
+
+  services.kdeconnect = {
+    enable = true;
+  };
 }
