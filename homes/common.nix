@@ -113,6 +113,8 @@
   programs.vscode = {
     enable = true;
 
+    # TODO: investigate https://github.com/tomrijndorp/vscode-finditfaster
+
     extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
       bbenoist.nix 
@@ -138,6 +140,12 @@
         version = "1.25.1";
         sha256 = "6acdded8bcca052b221acfd4188674e97a9b2e1dfb8ab0d4682cec96a2131094";
       }
+      {
+        name = "vscode-intellij-recent-files";
+        publisher = "percygrunwald";
+        version = "1.1.1";
+        sha256 = "a94cf4102accc72e5530628492aeac6a43fa43cba54b61a79b58878b5c1beb25";
+      }
     ];
 
     userSettings = {
@@ -147,7 +155,9 @@
       "editor.minimap.enabled" = false;
       "workbench.editor.showTabs" = "none";
       "vim.normalModeKeyBindingsNonRecursive" = [
-          { before = ["<Space>" "<Space>"]; commands = [ "workbench.action.showAllEditors" ]; }
+          { before = ["<Space>" "<Space>"]; commands = [ "extension.intellijRecentFiles" ]; }
+          { before = ["<Space>" "p"]; commands = [ "workbench.panel.markers.view.focus" ]; }
+          { before = ["<Space>" "f"]; commands = [ "workbench.action.showAllSymbols" ]; }
           { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
           { before = ["<Space>" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
           { before = ["<Space>" "j"]; after = ["<C-w>" "<C-j>"]; }
@@ -281,6 +291,8 @@
 
     # py
     python3
+
+    postgresql
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
