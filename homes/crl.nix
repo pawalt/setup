@@ -18,4 +18,8 @@
       };
     };
   };
+
+  programs.zsh.shellAliases = {
+    gmpr = "git machete github create-pr --draft";
+  };
 }

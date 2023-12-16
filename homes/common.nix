@@ -120,6 +120,7 @@
       ms-python.vscode-pylance
       redhat.vscode-yaml
       github.copilot
+      bodil.file-browser
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Getting this sha is annoying. I just blanked it out, ran rebuild to
       # get the sha diff (which shows up in base64), then decode it with:
@@ -143,6 +144,19 @@
       "keyboard.dispatch" = "keyCode";
       "editor.fontFamily" = "Hack Nerd Font";
       "workbench.colorTheme" = "Gruvbox Dark (Medium)";
+      "editor.minimap.enabled" = false;
+      "workbench.editor.showTabs" = "none";
+      "vim.normalModeKeyBindingsNonRecursive" = [
+          { before = ["<Space>" "<Space>"]; commands = [ "workbench.action.showAllEditors" ]; }
+          { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
+          { before = ["<Space>" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
+          { before = ["<Space>" "j"]; after = ["<C-w>" "<C-j>"]; }
+          { before = ["<Space>" "h"]; after = ["<C-w>" "<C-h>"]; }
+          { before = ["<Space>" "k"]; after = ["<C-w>" "<C-k>"]; }
+          { before = ["<Space>" "l"]; after = ["<C-w>" "<C-l>"]; }
+          { before = ["H"]; commands = [ "workbench.action.navigateBack" ]; }
+          { before = ["L"]; commands = [ "workbench.action.navigateForward" ]; }
+      ];
     };
   };
 
@@ -203,7 +217,6 @@
         gc = "git checkout";
 
         gm = "git machete";
-        gmpr = "git machete github create-pr --draft";
 
         ".." = "cd ..";
         "..." = "cd ../..";
@@ -265,6 +278,9 @@
 
     # node
     nodejs
+
+    # py
+    python3
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
