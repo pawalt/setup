@@ -113,8 +113,6 @@
   programs.vscode = {
     enable = true;
 
-    # TODO: investigate https://github.com/tomrijndorp/vscode-finditfaster
-
     extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
       bbenoist.nix 
@@ -146,20 +144,54 @@
         version = "1.1.1";
         sha256 = "a94cf4102accc72e5530628492aeac6a43fa43cba54b61a79b58878b5c1beb25";
       }
+      {
+        name = "sqltools";
+        publisher = "mtxr";
+        version = "0.28.1";
+        sha256 = "3f30db1fda58788ce63053a43ccb1ba39a4d19723aaaeb1a025c0ceac93db35d";
+      }
+      {
+        name = "vscode-search-everywhere";
+        publisher = "kbysiec";
+        version = "2.1.0";
+        sha256 = "e59df9faeaa46df4f4931720676df9af248eed6bc652f28fe7614b534a686a63";
+      }
     ];
 
     userSettings = {
       "keyboard.dispatch" = "keyCode";
       "editor.fontFamily" = "Hack Nerd Font";
       "workbench.colorTheme" = "Gruvbox Dark (Medium)";
+
+      # slim down scroll + map ui
       "editor.minimap.enabled" = false;
-      "workbench.editor.showTabs" = "none";
+      "editor.hideCursorInOverviewRuler" = true;
+      "editor.overviewRulerBorder" = false;
+
+      # show compact single tabs with bread crumbs
+      "workbench.editor.showTabs" = "single";
+      "window.density.editorTabHeight" = "compact";
+      "workbench.editor.tabSizingFixedMinWidth" = 100;
+      "breadcrumbs.enabled" = true;
+
+      # auto save when switching contexts so no zombie files
+      "files.autoSave" = "onFocusChange";
+
+      "searchEverywhere.include" = "**/*.{js,jsx,ts,tsx,go}";
+
+      "editor.lineNumbers" = "relative";
+      "vim.useSystemClipboard" = true;
+      "vim.hlsearch" = true;
       "vim.normalModeKeyBindingsNonRecursive" = [
+          # search and file lookup
           { before = ["<Space>" "<Space>"]; commands = [ "extension.intellijRecentFiles" ]; }
-          { before = ["<Space>" "p"]; commands = [ "workbench.panel.markers.view.focus" ]; }
-          { before = ["<Space>" "f"]; commands = [ "workbench.action.showAllSymbols" ]; }
+          { before = ["<Space>" "f"]; commands = [ "searchEverywhere.search" ]; }
           { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
+
+          { before = ["<Space>" "p"]; commands = [ "workbench.panel.markers.view.focus" ]; }
           { before = ["<Space>" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
+
+          # spacemacs-like window navigation
           { before = ["<Space>" "j"]; after = ["<C-w>" "<C-j>"]; }
           { before = ["<Space>" "h"]; after = ["<C-w>" "<C-h>"]; }
           { before = ["<Space>" "k"]; after = ["<C-w>" "<C-k>"]; }
@@ -275,6 +307,8 @@
     git-machete
     neofetch
     obsidian
+    postgresql
+    jq
 
     # make lol
     gnumake
@@ -291,8 +325,6 @@
 
     # py
     python3
-
-    postgresql
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
