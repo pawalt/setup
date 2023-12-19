@@ -10,6 +10,10 @@
     ];
   };
 
+  nixpkgs.overlays = [
+    (import ../overlays/ollama.nix)
+  ];
+
   home.stateVersion = "23.11";
 
   fonts.fontconfig.enable = true;
@@ -325,6 +329,9 @@
 
     # py
     python3
+
+    # ml
+    ollama
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
