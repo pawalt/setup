@@ -1,10 +1,17 @@
 # Nix expression to overlay ollama v0.1.16
 
-# TODO(peyton): overlay llama.cpp so we can get mixtral support
-# https://github.com/NixOS/nixpkgs/blob/63dd8e1d2e81aaecb7de9b70ca143a607b19a3b9/pkgs/by-name/ll/llama-cpp/package.nix#L128
-
 self: super: {
-  ollama = let
+  llama-cpp = super.llama-cpp.overrideAttrs (oldAttrs: rec {
+    version = "1662";
+    src = super.fetchFromGitHub {
+      owner = "ggerganov";
+      repo = "llama.cpp";
+      rev = "refs/tags/b${version}";
+      sha256 = "sha256-Nc9r5wU8OB6AUcb0By5fWMGyFZL5FUP7Oe/aVkiouWg=";
+    };
+  });
+
+  ollama = super.ollama.overrideAttrs (oldAttrs: rec {
     version = "0.1.16";
     src = super.fetchFromGitHub {
       owner = "jmorganca";
@@ -20,12 +27,5 @@ self: super: {
       "-X=github.com/jmorganca/ollama/version.Version=${version}"
       "-X=github.com/jmorganca/ollama/server.mode=release"
     ];
-  in
-    super.ollama.override rec {
-      buildGoModule = args:
-        super.buildGoModule (args
-          // {
-            inherit src version vendorHash ldflags;
-          });
-    };
+  });
 }
