@@ -273,6 +273,13 @@
     # macos upgrades sometimes fuck the nix path so recover if that happens.
     [[ ! $(command -v nix) && -e "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" ]] && source "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
 
+    # refresh whatever the main branch is
+    function ref() {
+      main_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+      cur_branch=$(git branch --show-current)
+      git checkout $main_branch && git pull && git checkout $cur_branch
+    }
+
     neofetch
     '';
 
