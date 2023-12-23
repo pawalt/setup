@@ -3,17 +3,6 @@
 {
   programs.home-manager.enable = true;
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [
-      "electron-25.9.0"
-    ];
-  };
-
-  nixpkgs.overlays = [
-    (import ../overlays/ollama.nix)
-  ];
-
   home.stateVersion = "23.11";
 
   fonts.fontconfig.enable = true;
@@ -125,6 +114,7 @@
       redhat.vscode-yaml
       github.copilot
       bodil.file-browser
+      ms-azuretools.vscode-docker
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Getting this sha is annoying. I just blanked it out, ran rebuild to
       # get the sha diff (which shows up in base64), then decode it with:

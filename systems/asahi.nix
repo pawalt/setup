@@ -44,6 +44,11 @@
       "electron-25.9.0"
     ];
   };
+
+  nixpkgs.overlays = [
+    (import ../overlays/ollama.nix)
+  ];
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   time.timeZone = "America/New_York";
@@ -111,6 +116,7 @@
     wget
     lshw
     wl-clipboard
+    docker-compose
   ];
 
   virtualisation.docker.enable = true;
