@@ -29,4 +29,9 @@
   services.syncthing = {
     enable = true;
   };
+
+  home.packages = with pkgs; [
+    # no point to running on linux because need m1 drivers go brrr
+    ollama
+  ];
 }

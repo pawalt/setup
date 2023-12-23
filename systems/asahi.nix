@@ -96,9 +96,15 @@
     startAgent = true;
   };
 
-  # Enable sound. no speakers tho lol
+  # Save storage space
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   programs._1password = {
     enable = true;
