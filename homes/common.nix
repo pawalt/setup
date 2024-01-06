@@ -310,6 +310,7 @@
     obsidian
     postgresql
     jq
+    fzf
 
     # make lol
     gnumake
