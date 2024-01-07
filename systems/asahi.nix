@@ -92,6 +92,52 @@
     };
   };
 
+  services.kmonad = {
+    enable = true;
+    keyboards = {
+      inbuilt = {
+        device = "/dev/input/by-path/platform-39b10c000.spi-cs-0-event-kbd";
+        defcfg = {
+          enable = true;
+          fallthrough = true;
+        };
+        config = ''
+          (defalias
+            fn (layer-toggle function)
+          )
+
+          ;; wkup is dummy and is always overridden by the @fn
+          (defsrc
+            esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            caps a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+            wkup   lctl lalt lmet           spc            rmet ralt left down rght
+          )
+
+          (deflayer default
+            _    f1 f2 -   - bldn blup prev pp   next mute vold volu
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _
+            wkup  _    _    _              _              _    _    _    _    _
+          )
+
+          (deflayer function
+            _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    _    _              _              _    _    _    _    _
+          )
+          '';
+      };
+    }; 
+  };
+
   programs.ssh = {
     startAgent = true;
   };

@@ -167,6 +167,7 @@
       "window.density.editorTabHeight" = "compact";
       "workbench.editor.tabSizingFixedMinWidth" = 100;
       "breadcrumbs.enabled" = true;
+      "workbench.activityBar.location" = "hidden";
 
       # auto save when switching contexts so no zombie files
       "files.autoSave" = "onFocusChange";

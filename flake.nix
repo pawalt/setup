@@ -26,6 +26,13 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    kmonad = {
+      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = {
@@ -34,7 +41,8 @@
     home-manager,
     nix-darwin,
     nixos-apple-silicon,
-    plasma-manager
+    plasma-manager,
+    kmonad
   }: {
     darwinConfigurations = let
       system = "aarch64-darwin";
@@ -91,6 +99,7 @@
         system = "aarch64-linux";
         modules = [
           nixos-apple-silicon.nixosModules.apple-silicon-support
+          kmonad.nixosModules.default
           ./systems/asahi.nix
           home-manager.nixosModules.home-manager
           {
@@ -105,6 +114,8 @@
                 "wheel"
                 "networkmanager"
                 "docker"
+                "input"
+                "uinput"
               ];
             };
 
