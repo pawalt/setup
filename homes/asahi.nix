@@ -7,6 +7,7 @@
     # while rebuilding the world.
     # https://github.com/tpwrules/nixos-apple-silicon/blob/14b327ca47703c376ebb82ba16dc42ca2baa57d8/apple-silicon-support/modules/mesa/default.nix#L55
     switch = "sudo nixos-rebuild switch --impure --flake $HOME/projects/setup";
+    deploy = "nixos-rebuild switch --flake $HOME/projects/setup#monohost --target-host root@monohost";
   };
 
   programs.chromium = {

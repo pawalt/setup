@@ -93,6 +93,13 @@
     };
   };
 
+  # must manually auth with `sudo tailscale login` since I don't have a secret management solution yet
+  # need to get a secret management solution going so i can use `extraUpFlags`
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
   programs.ssh = {
     startAgent = true;
   };

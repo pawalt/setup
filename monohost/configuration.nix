@@ -11,6 +11,8 @@
   };
   services.openssh.enable = true;
 
+  networking.hostName = "monohost";
+
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -64,6 +66,13 @@
         };
       };
     };
+  };
+
+  # must manually auth with `sudo tailscale login` since I don't have a secret management solution yet
+  # need to get a secret management solution going so i can use `extraUpFlags`
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "both";
   };
 
   # Save storage space
