@@ -125,10 +125,6 @@
             };
           }
         ];
-        specialArgs = {
-          inherit nixpkgs;
-          inherit nixos-apple-silicon;
-        };
       };
 
       # cheeky hetzner action. would love to do x86 but asahi can't build with qemu yet.
