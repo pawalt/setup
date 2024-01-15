@@ -26,6 +26,11 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -34,7 +39,8 @@
     home-manager,
     nix-darwin,
     nixos-apple-silicon,
-    plasma-manager
+    plasma-manager,
+    disko
   }: {
     darwinConfigurations = let
       system = "aarch64-darwin";
@@ -122,6 +128,15 @@
           inherit nixpkgs;
           inherit nixos-apple-silicon;
         };
+      };
+
+      # cheeky graviton action. would love to do x86 but asahi can't build with qemu yet.
+      monohost = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          disko.nixosModules.disko
+          ./monohost/configuration.nix
+        ];
       };
     };
   };

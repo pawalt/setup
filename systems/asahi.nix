@@ -80,13 +80,14 @@
       devices = {
         "iphone" = { id = "5YRXT5Z-KEGT5DW-VBH6EAR-YDQPFMW-LCUKH2X-QPKHWXH-BYAVZGR-LODC4AI"; };
         "crlmbp" = { id = "TGGH4PO-YTTK7W3-SDFYJNI-HPXZ5FC-SW364DR-JMQKI67-V4QFGAF-SJ6ZYQI"; };
+        "monohost" = { id = "DJ6KN2V-7Q4NORA-A2AAXQN-QEWF4ES-UUUN5QP-2ZELIET-XMY3XKJ-HZPDXQH"; };
       };
 
       folders = {
         # generic sync folder
         "cccjw-5fcyz" = {
           path = "/home/peyton/sync";
-          devices = [ "iphone" "crlmbp" ];
+          devices = [ "iphone" "crlmbp" "monohost" ];
         };
       };
     };
