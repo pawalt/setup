@@ -12,14 +12,14 @@ self: super: {
   });
 
   ollama = super.ollama.overrideAttrs (oldAttrs: rec {
-    version = "0.1.16";
+    version = "0.1.20";
     src = super.fetchFromGitHub {
       owner = "jmorganca";
       repo = "ollama";
       rev = "v${version}";
-      hash = "sha256-K9BBMFhp1qj6Ya8W04FQA1ZUkfwoC870aciS3vUXtb0=";
+      hash = "sha256-3rB/L0dNiRBlxUElfmcjbxtE9O7ErykEWwgIZscKWj0=";
     };
-    vendorHash = "sha256-hjQHoJLzueDT8pEcSSdiR3a4CH4gq+9vG5a3gwkOITE=";
+    vendorHash = "sha256-ajQHoJLzueDT8pEcSSdiR3a4CH4gq+9vG5a3gwkOITE=";
 
     ldflags = [
       "-s"
