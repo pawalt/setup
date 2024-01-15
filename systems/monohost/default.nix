@@ -1,30 +1,18 @@
-# https://github.com/nix-community/nixos-anywhere-examples/blob/37894d6ddea2beee33c7e2a9faf42d35c40c074f/configuration.nix#L1
 { modulesPath, config, lib, pkgs, ... }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     ./disk-configuration.nix
   ];
+
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
+
   services.openssh.enable = true;
 
   networking.hostName = "monohost";
-
-  time.timeZone = "America/New_York";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  programs.zsh.enable = true;
-  environment.shells = [pkgs.bash pkgs.zsh];
-  users.defaultUserShell = pkgs.zsh;
-
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
-    pkgs.neovim
-  ];
 
   users.users = {
     root.openssh.authorizedKeys.keys = [
@@ -74,14 +62,4 @@
     enable = true;
     useRoutingFeatures = "both";
   };
-
-  # Save storage space
-  nix.optimise.automatic = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
-  system.stateVersion = "23.11";
 }

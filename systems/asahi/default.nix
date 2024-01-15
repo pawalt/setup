@@ -46,17 +46,8 @@
   };
 
   nixpkgs.overlays = [
-    (import ../overlays/ollama.nix)
+    (import ../../overlays/ollama.nix)
   ];
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  time.timeZone = "America/New_York";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  programs.zsh.enable = true;
-  environment.shells = [pkgs.bash pkgs.zsh];
-  users.defaultUserShell = pkgs.zsh;
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -80,7 +71,7 @@
       devices = {
         "iphone" = { id = "5YRXT5Z-KEGT5DW-VBH6EAR-YDQPFMW-LCUKH2X-QPKHWXH-BYAVZGR-LODC4AI"; };
         "crlmbp" = { id = "TGGH4PO-YTTK7W3-SDFYJNI-HPXZ5FC-SW364DR-JMQKI67-V4QFGAF-SJ6ZYQI"; };
-        "monohost" = { id = "DJ6KN2V-7Q4NORA-A2AAXQN-QEWF4ES-UUUN5QP-2ZELIET-XMY3XKJ-HZPDXQH"; };
+        "monohost" = { id = "Z3XMJ7T-PK55SC7-WWK3MQD-JPOX3H2-53XNVJD-SIP2NY2-WCGRPDL-SYUCYAE"; };
       };
 
       folders = {
@@ -104,14 +95,6 @@
     startAgent = true;
   };
 
-  # Save storage space
-  nix.optimise.automatic = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
   sound.enable = true;
 
   programs._1password = {
@@ -125,15 +108,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
-    neovim
-    wget
-    lshw
     wl-clipboard
     docker-compose
   ];
 
   virtualisation.docker.enable = true;
-
-  system.stateVersion = "23.11";
 }

@@ -1,5 +1,5 @@
 {
-  description = "Peyton's nix config. 2 macOS instances, one NixOS asahi instance.";
+  description = "Peyton's nix config. 2 macOS instances, one NixOS asahi instance, one NixOS hetzner instance.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
@@ -97,7 +97,8 @@
         system = "aarch64-linux";
         modules = [
           nixos-apple-silicon.nixosModules.apple-silicon-support
-          ./systems/asahi.nix
+          ./systems/nixos
+          ./systems/asahi
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -130,12 +131,13 @@
         };
       };
 
-      # cheeky graviton action. would love to do x86 but asahi can't build with qemu yet.
+      # cheeky hetzner action. would love to do x86 but asahi can't build with qemu yet.
       monohost = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           disko.nixosModules.disko
-          ./monohost/configuration.nix
+          ./systems/nixos
+          ./systems/monohost
         ];
       };
     };
