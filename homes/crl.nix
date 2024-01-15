@@ -19,7 +19,14 @@
     };
   };
 
-  programs.zsh.shellAliases = {
-    gmpr = "git machete github create-pr --draft";
+  programs.zsh = {
+    # we use rancher at work
+    initExtra = '' 
+      export PATH=$HOME/.rd/bin:$PATH
+    '';
+
+    shellAliases = {
+      gmpr = "git machete github create-pr --draft";
+    };
   };
 }

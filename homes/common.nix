@@ -185,6 +185,7 @@
 
           { before = ["<Space>" "p"]; commands = [ "workbench.panel.markers.view.focus" ]; }
           { before = ["<Space>" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
+          { before = ["<Space>" "/"]; commands = [ "workbench.action.toggleSidebarVisibility" ]; }
 
           # spacemacs-like window navigation
           { before = ["<Space>" "j"]; after = ["<C-w>" "<C-j>"]; }
