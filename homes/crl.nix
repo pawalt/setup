@@ -29,4 +29,8 @@
       gmpr = "git machete github create-pr --draft";
     };
   };
+
+  home.packages = with pkgs; [
+    google-cloud-sdk
+  ];
 }
