@@ -31,6 +31,11 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -40,7 +45,8 @@
     nix-darwin,
     nixos-apple-silicon,
     plasma-manager,
-    disko
+    disko,
+    agenix
   }: {
     darwinConfigurations = let
       system = "aarch64-darwin";
@@ -95,11 +101,13 @@
     nixosConfigurations = {
       macbox = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
+        specialArgs = { inherit agenix; };
         modules = [
           nixos-apple-silicon.nixosModules.apple-silicon-support
+          home-manager.nixosModules.home-manager
+          agenix.nixosModules.default
           ./systems/nixos
           ./systems/asahi
-          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -132,6 +140,7 @@
         system = "aarch64-linux";
         modules = [
           disko.nixosModules.disko
+          agenix.nixosModules.default
           ./systems/nixos
           ./systems/monohost
         ];

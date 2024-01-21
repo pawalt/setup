@@ -1,9 +1,14 @@
-{ user }: {
+{ user, config }:
+  let
+    homedir = config.users.users.${user}.home;
+    syncdir = "${homedir}/sync";
+  in
+{
   services.syncthing = {
     enable = true;
     user = user;
-    configDir = "/home/${user}/.config/syncthing";
-    dataDir = "/home/${user}/.config/syncthing/db";
+    configDir = "${homedir}/.config/syncthing";
+    dataDir = "${homedir}/.config/syncthing/db";
 
     overrideDevices = true;
     overrideFolders = true;
@@ -22,7 +27,7 @@
       folders = {
         # generic sync folder
         "cccjw-5fcyz" = {
-          path = "/home/${user}/sync";
+          path = syncdir;
           devices = [
             "iphone"
             "crlmbp"
@@ -34,4 +39,7 @@
       };
     };
   };
+
+  # use special identity for secrets
+  age.identityPaths = [ "${syncdir}/secrets/id_age_ed25519" ];
 }

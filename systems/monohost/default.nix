@@ -3,7 +3,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     ./disk-configuration.nix
-    ( import ../../custom/syncthing.nix { user = "nixos"; } )
+    ( import ../../custom/user-specific.nix { user = "nixos"; inherit config; } )
   ];
 
   boot.loader.grub = {
@@ -30,10 +30,15 @@
     };
   };
 
-  # must manually auth with `sudo tailscale login` since I don't have a secret management solution yet
-  # need to get a secret management solution going so i can use `extraUpFlags`
+  age.secrets.monohost_tskey.file = ../../secrets/monohost_tskey.age;
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "both";
+
+    authKeyFile = config.age.secrets.monohost_tskey.path;
+
+    extraUpFlags = [
+      "--accept-routes"
+    ];
   };
 }

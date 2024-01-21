@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, agenix, ... }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./asahi-hardwarecfg.nix
-    ( import ../../custom/syncthing.nix { user = "peyton"; } )
+    ( import ../../custom/user-specific.nix { user = "peyton"; inherit config; } )
   ];
 
   # COPY FIRMWARE FILES FROM /boot/asahi
@@ -61,8 +61,6 @@
     libinput.enable = true;
   };
 
-  # must manually auth with `sudo tailscale login` since I don't have a secret management solution yet
-  # need to get a secret management solution going so i can use `extraUpFlags`
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "client";
@@ -87,6 +85,8 @@
   environment.systemPackages = with pkgs; [
     wl-clipboard
     docker-compose
+  ] ++ [
+    agenix.packages."${system}".default
   ];
 
   virtualisation.docker.enable = true;
