@@ -248,7 +248,6 @@
         p8 = "ping 8.8.8.8";
 
         cat = "bat -P --style=plain";
-        rg = "grep -ir";
 
         ls = "ls --color";
         l = "ls -CF";
@@ -324,6 +323,8 @@
     postgresql
     jq
     fzf
+    ripgrep
+    wget
 
     # make lol
     gnumake
