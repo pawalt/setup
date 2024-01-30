@@ -180,12 +180,15 @@
       "vim.normalModeKeyBindingsNonRecursive" = [
           # search and file lookup
           { before = ["<Space>" "<Space>"]; commands = [ "extension.intellijRecentFiles" ]; }
+          # need to replace this with some fzf jawn. this too slow
           { before = ["<Space>" "f"]; commands = [ "searchEverywhere.search" ]; }
           { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
 
-          { before = ["<Space>" "p"]; commands = [ "workbench.panel.markers.view.focus" ]; }
-          { before = ["<Space>" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
-          { before = ["<Space>" "/"]; commands = [ "workbench.action.toggleSidebarVisibility" ]; }
+          { before = ["<Space>" "a" "p" ]; commands = [ "workbench.files.action.focusFilesExplorer" ]; }
+          { before = ["<Space>" "a" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
+          # problems view
+          { before = ["<Space>" "a" "c" "p" ]; commands = [ "workbench.action.closeSidebar" ]; }
+          { before = ["<Space>" "a" "c" "t" ]; commands = [ "workbench.action.closePanel" ]; }
 
           # spacemacs-like window navigation
           { before = ["<Space>" "j"]; after = ["<C-w>" "<C-j>"]; }
@@ -194,6 +197,14 @@
           { before = ["<Space>" "l"]; after = ["<C-w>" "<C-l>"]; }
           { before = ["H"]; commands = [ "workbench.action.navigateBack" ]; }
           { before = ["L"]; commands = [ "workbench.action.navigateForward" ]; }
+      ];
+
+      keybindings = [
+        {
+          key = "escape";
+          command = "workbench.action.focusActiveEditorGroup";
+          when = "!editorTextFocus";
+        }
       ];
     };
   };
