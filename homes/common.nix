@@ -338,6 +338,7 @@
 
     # node
     nodejs
+    nodePackages.pnpm
 
     # py
     python3
