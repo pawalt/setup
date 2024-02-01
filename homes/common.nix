@@ -15,12 +15,12 @@
     viAlias = true;
     vimAlias = true;
 
-    plugins = with pkgs; [
-      vimPlugins.gruvbox
-      vimPlugins.nerdtree
-      vimPlugins.vim-airline
-      vimPlugins.auto-pairs
-      vimPlugins.vim-devicons
+    plugins = with pkgs.vimPlugins; [
+      gruvbox
+      nerdtree
+      vim-airline
+      auto-pairs
+      vim-devicons
     ];
 
     extraConfig = ''
@@ -63,43 +63,6 @@
       nnoremap <Space>h <C-W><C-H>
       nnoremap <Space>k <C-W><C-K>
       nnoremap <Space>l <C-W><C-L>
-
-      " refactoring tools
-
-      " split a function call to multi-line
-      function! SplitFunc()
-        " Save the current cursor position
-        let l:save_cursor = getpos(".")
-
-        " Search backward for the start of the function call or definition
-        call search('\<\S\+\ze\s*(', 'bW')
-
-        " Add newline and indentation before the first argument
-        normal! f(l
-        execute "normal! i\<CR>\<Esc>"
-        execute "normal! =="
-
-        " Jump to the end of the function call or definition
-        normal f)
-
-        " Enter visual mode and select till the start of the function
-        normal! v%O
-
-        " Substitute commas with newlines and commas, properly indented
-        execute "normal! :s/,/,\\r" . repeat(' ', &shiftwidth) . "/g\<CR>"
-
-        " Add comma and newline after the last argument
-        normal! F)a
-        execute "normal! a,\<CR>\<Esc>"
-        execute "normal! =="
-
-        " Restore the cursor position
-        call setpos('.', l:save_cursor)
-      endfunction
-
-      " refactoring bindings
-      " <Space>r is the begin key for refactoring bindings
-      nnoremap <Space>rs :call SplitFunc()<CR>
     '';
   };
 

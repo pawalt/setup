@@ -22,7 +22,7 @@
   programs.zsh = {
     # we use rancher at work
     initExtra = '' 
-      export PATH=$HOME/.rd/bin:$PATH
+      export PATH=$HOME/.rd/bin:$HOME/go/src/github.com/cockroachlabs/managed-service/bin:$PATH
     '';
 
     shellAliases = {
