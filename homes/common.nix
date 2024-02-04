@@ -69,15 +69,19 @@
   programs.vscode = {
     enable = true;
 
+    # sometimes have to `rm -rf ~/.vscode/extensions`. very much wish i knew why
     extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
-      bbenoist.nix 
+      bbenoist.nix
       golang.go
       ms-python.vscode-pylance
       redhat.vscode-yaml
       github.copilot
       bodil.file-browser
       ms-azuretools.vscode-docker
+      ms-python.python
+      ms-python.black-formatter
+      eamodio.gitlens
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Getting this sha is annoying. I just blanked it out, ran rebuild to
       # get the sha diff (which shows up in base64), then decode it with:
@@ -90,10 +94,10 @@
         sha256 = "0e7c00481a75cef265b8373fca1481f3b77458cf0f49bcea02fa08094470d377";
       }
       {
-        name = "vscode-pets";
-        publisher = "tonybaloney";
-        version = "1.25.1";
-        sha256 = "6acdded8bcca052b221acfd4188674e97a9b2e1dfb8ab0d4682cec96a2131094";
+        name = "fzf-quick-open";
+        publisher = "rlivings39";
+        version = "0.5.1";
+        sha256 = "c467019779a6cb2f99b27f4e9dc0c36c9562331120bec463933cbcf4d3c9a52f";
       }
       {
         name = "vscode-intellij-recent-files";
@@ -130,7 +134,7 @@
       "window.density.editorTabHeight" = "compact";
       "workbench.editor.tabSizingFixedMinWidth" = 100;
       "breadcrumbs.enabled" = true;
-      "workbench.activityBar.location" = "hidden";
+      # "workbench.activityBar.location" = "hidden";
 
       # auto save when switching contexts so no zombie files
       "files.autoSave" = "onFocusChange";
@@ -147,9 +151,20 @@
           { before = ["<Space>" "f"]; commands = [ "searchEverywhere.search" ]; }
           { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
 
+          # split window in both directions
+          { before = ["<Space>" "w" "v" ]; after = [ "<C-w>" "<C-v>" ]; }
+          { before = ["<Space>" "w" "s" ]; after = [ "<C-w>" "<C-s>" ]; }
+          { before = ["<Space>" "w" "c" ]; commands = [ "workbench.action.closeEditorsInGroup" ]; }
+
+          # problems
+          { before = ["<Space>" "p" "n" ]; commands = [ "editor.action.marker.next" ]; }
+          { before = ["<Space>" "p" "p" ]; commands = [ "editor.action.marker.previous" ]; }
+
+          # code
+          { before = ["<Space>" "c" "r" ]; commands = [ "editor.action.rename" ]; }
+
           { before = ["<Space>" "a" "p" ]; commands = [ "workbench.files.action.focusFilesExplorer" ]; }
           { before = ["<Space>" "a" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
-          # problems view
           { before = ["<Space>" "a" "c" "p" ]; commands = [ "workbench.action.closeSidebar" ]; }
           { before = ["<Space>" "a" "c" "t" ]; commands = [ "workbench.action.closePanel" ]; }
 
@@ -302,6 +317,9 @@
     # node
     nodejs
     nodePackages.pnpm
+
+    # mhm
+    docker-compose
 
     # py
     python3

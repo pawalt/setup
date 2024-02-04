@@ -84,7 +84,6 @@
 
   environment.systemPackages = with pkgs; [
     wl-clipboard
-    docker-compose
   ] ++ [
     agenix.packages."${system}".default
   ];
