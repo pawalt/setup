@@ -1,0 +1,55 @@
+" navigation
+nnoremap <Space>j <C-W><C-J>
+nnoremap <Space>h <C-W><C-H>
+nnoremap <Space>k <C-W><C-K>
+nnoremap <Space>l <C-W><C-L>
+
+nnoremap <Space>n <M-Up>
+
+map <Space><Space> <Action>(RecentFiles)
+map <Space>f <Action>(SearchEverywhere)
+map <Space>e <Action>(FindInPath)
+
+" quick macros
+nnoremap <Space>q @q
+
+" git
+map <Space>gh <Action>(Github.Open.In.Browser)
+
+" problems
+map <Space>pn <Action>(GotoNextError)
+map <Space>pp <Action>(GotoPreviousError)
+
+" running test
+map <Space>rc <Action>(RunClass)
+map <Space>rr <Action>(RerunFailedTests)
+map <Space>re <Action>(Rerun)
+
+" code manipulation
+map <Space>cr <Action>(Refactorings.QuickListPopupAction)
+
+" view control
+map <Space>ap <Action>(SelectInProjectView)
+map <Space>at <Action>(ActivateTerminalToolWindow)
+map <Space>ar <Action>(ActivateProblemsViewToolWindow)
+map <Space>ac <Action>(HideActiveWindow)
+
+" window control
+nnoremap <Space>wv :action SplitVertically<CR>
+nnoremap <Space>ws :action SplitHorizontally<CR>
+nnoremap <Space>wc :action Unsplit<CR>
+nnoremap <Space>wo :on<CR>
+
+map gi <Action>(GotoImplementation)
+map gd <Action>(GotoDeclaration)
+
+map H <Action>(Back)
+map L <Action>(Forward)
+
+set rnu
+set number
+" show search results incrementally and show all of them
+set incsearch
+set hlsearch
+
+set clipboard+=unnamed
