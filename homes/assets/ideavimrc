@@ -10,6 +10,8 @@ map <Space><Space> <Action>(RecentFiles)
 map <Space>f <Action>(SearchEverywhere)
 map <Space>e <Action>(FindInPath)
 
+nnoremap <Space>d "_d
+
 " quick macros
 nnoremap <Space>q @q
 
