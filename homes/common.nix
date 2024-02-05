@@ -240,7 +240,9 @@
         gia = "git commit --amend";
         gian = "git commit --amend --no-edit";
         upd = "git commit --amend --no-edit && git push -f";
+
         gc = "git checkout";
+        gpi = "git checkout $(git branch | fzf)";
 
         gm = "git machete";
 
@@ -329,7 +331,7 @@
   # plain files is through 'home.file'.
   home.file = {
     ".ideavimrc" = {
-      source = ./ideavimrc;
+      source = ./assets/ideavimrc;
     };
   };
 }
