@@ -72,16 +72,25 @@ in
 
     # sometimes have to `rm -rf ~/.vscode/extensions`. very much wish i knew why
     extensions = with pkgs.vscode-extensions; [
+      # editor
       vscodevim.vim
-      bbenoist.nix
-      golang.go
-      ms-python.vscode-pylance
-      redhat.vscode-yaml
-      github.copilot
       bodil.file-browser
+      github.copilot
+
+      # i like go
+      golang.go
+
+      # i like yaml
+      redhat.vscode-yaml
       ms-azuretools.vscode-docker
+      bbenoist.nix
+
+      # i dont like python
+      ms-python.vscode-pylance
       ms-python.python
       ms-python.black-formatter
+
+      # i like git
       eamodio.gitlens
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Getting this sha is annoying. I just blanked it out, ran rebuild to
@@ -95,12 +104,6 @@ in
         sha256 = "0e7c00481a75cef265b8373fca1481f3b77458cf0f49bcea02fa08094470d377";
       }
       {
-        name = "fzf-quick-open";
-        publisher = "rlivings39";
-        version = "0.5.1";
-        sha256 = "c467019779a6cb2f99b27f4e9dc0c36c9562331120bec463933cbcf4d3c9a52f";
-      }
-      {
         name = "vscode-intellij-recent-files";
         publisher = "percygrunwald";
         version = "1.1.1";
@@ -111,12 +114,6 @@ in
         publisher = "mtxr";
         version = "0.28.1";
         sha256 = "3f30db1fda58788ce63053a43ccb1ba39a4d19723aaaeb1a025c0ceac93db35d";
-      }
-      {
-        name = "vscode-search-everywhere";
-        publisher = "kbysiec";
-        version = "2.1.0";
-        sha256 = "e59df9faeaa46df4f4931720676df9af248eed6bc652f28fe7614b534a686a63";
       }
     ];
 
@@ -156,7 +153,7 @@ in
       "window.density.editorTabHeight" = "compact";
       "workbench.editor.tabSizingFixedMinWidth" = 100;
       "breadcrumbs.enabled" = true;
-      # "workbench.activityBar.location" = "hidden";
+      "workbench.activityBar.location" = "hidden";
 
       # auto save when switching contexts so no zombie files
       "files.autoSave" = "onFocusChange";
@@ -177,10 +174,16 @@ in
           ]; }
           { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
 
+          # delete but throw away result
+          { before = ["<Space>" "d"]; after = [ "\"" "_" "d" ]; }
+          # play macro in q
+          { before = ["<Space>" "q"]; after = [ "@q" ]; }
+
           # split window in both directions
           { before = ["<Space>" "w" "v" ]; after = [ "<C-w>" "<C-v>" ]; }
           { before = ["<Space>" "w" "s" ]; after = [ "<C-w>" "<C-s>" ]; }
           { before = ["<Space>" "w" "c" ]; commands = [ "workbench.action.closeEditorsInGroup" ]; }
+          { before = ["<Space>" "w" "o" ]; commands = [ "workbench.action.closeEditorsInOtherGroups" ]; }
 
           # problems
           { before = ["<Space>" "p" "n" ]; commands = [ "editor.action.marker.next" ]; }
@@ -189,8 +192,10 @@ in
           # code
           { before = ["<Space>" "c" "r" ]; commands = [ "editor.action.rename" ]; }
 
+          # panel management
           { before = ["<Space>" "a" "p" ]; commands = [ "workbench.files.action.focusFilesExplorer" ]; }
           { before = ["<Space>" "a" "t"]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
+          { before = ["<Space>" "a" "l"]; commands = [ "workbench.extensions.action.focusExtensionsView" ]; }
           { before = ["<Space>" "a" "c" "p" ]; commands = [ "workbench.action.closeSidebar" ]; }
           { before = ["<Space>" "a" "c" "t" ]; commands = [ "workbench.action.closePanel" ]; }
 
@@ -205,12 +210,11 @@ in
     };
 
     keybindings = [
-      # commenting out for now because this breaks vim in terminal. need to find a fix
-      # {
-      #   key = "escape";
-      #   command = "workbench.action.focusActiveEditorGroup";
-      #   when = "!editorTextFocus";
-      # }
+      {
+        key = "escape";
+        command = "workbench.action.focusActiveEditorGroup";
+        when = "!editorTextFocus";
+      }
     ];
   };
 

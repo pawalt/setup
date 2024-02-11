@@ -19,4 +19,4 @@ INITIAL_QUERY="${*:-}"
     --header 'TAB: Switch between ripgrep/fzf' \
     --preview 'bat --theme=ansi --color=always {1} --highlight-line {2}' \
     --preview-window 'border-bottom,+{2}+3/3,~3' \
-    --bind 'enter:become(code -g {1}:{2})'
+    --bind 'enter:become(code -g {1}:{2}:{3})'

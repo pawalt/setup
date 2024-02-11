@@ -4,8 +4,6 @@ nnoremap <Space>h <C-W><C-H>
 nnoremap <Space>k <C-W><C-K>
 nnoremap <Space>l <C-W><C-L>
 
-nnoremap <Space>n <M-Up>
-
 map <Space><Space> <Action>(RecentFiles)
 map <Space>f <Action>(SearchEverywhere)
 map <Space>e <Action>(FindInPath)
