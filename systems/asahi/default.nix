@@ -48,9 +48,7 @@
     ];
   };
 
-  nixpkgs.overlays = [
-    (import ../../overlays/ollama.nix)
-  ];
+  nixpkgs.overlays = [];
 
   # Enable the X11 windowing system.
   services.xserver = {

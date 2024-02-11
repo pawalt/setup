@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   programs.zsh.shellAliases = {
@@ -14,10 +14,7 @@
     ];
   };
 
-  nixpkgs.overlays = [
-    # this shit broken and i dont wanna fix it rn
-    # (import ../overlays/ollama.nix)
-  ];
+  nixpkgs.overlays = [];
 
   # 14 pt font bc that's what plays nice with mac display scaling
   programs.kitty = {
@@ -31,7 +28,7 @@
     enable = true;
   };
 
-  home.packages = with pkgs; [
+  home.packages = with unstable; [
     # no point to running on linux because need m1 drivers go brrr
     ollama
   ];
