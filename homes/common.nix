@@ -1,5 +1,6 @@
-{ config, pkgs, inputs, ... }:
-
+{ config, pkgs, inputs, unstable, ... }: let
+  scriptsPath = "${config.home.homeDirectory}/projects/setup/homes/assets";
+in
 {
   programs.home-manager.enable = true;
 
@@ -119,6 +120,27 @@
       }
     ];
 
+    userTasks = {
+      version = "2.0.0";
+      tasks = [
+        {
+          label = "Launch rg-to-fzf";
+          type = "shell";
+          command = "${scriptsPath}/rg-to-fzf.sh";
+          presentation = {
+            reveal = "always";
+            panel = "new";
+            focus = true;
+            close = true;
+          };
+          options = {
+            cwd = "$" +  "{fileWorkspaceFolder}";
+          };
+          problemMatcher = [];
+        }
+      ];
+    };
+
     userSettings = {
       "keyboard.dispatch" = "keyCode";
       "editor.fontFamily" = "Hack Nerd Font";
@@ -147,8 +169,12 @@
       "vim.normalModeKeyBindingsNonRecursive" = [
           # search and file lookup
           { before = ["<Space>" "<Space>"]; commands = [ "extension.intellijRecentFiles" ]; }
-          # need to replace this with some fzf jawn. this too slow
-          { before = ["<Space>" "f"]; commands = [ "searchEverywhere.search" ]; }
+          { before = ["<Space>" "f"]; commands = [
+            {
+              command = "workbench.action.tasks.runTask";
+              args = "Launch rg-to-fzf";
+            }
+          ]; }
           { before = ["<Space>" "o"]; commands = [ "file-browser.open" ]; }
 
           # split window in both directions
@@ -176,15 +202,16 @@
           { before = ["H"]; commands = [ "workbench.action.navigateBack" ]; }
           { before = ["L"]; commands = [ "workbench.action.navigateForward" ]; }
       ];
-
-      keybindings = [
-        {
-          key = "escape";
-          command = "workbench.action.focusActiveEditorGroup";
-          when = "!editorTextFocus";
-        }
-      ];
     };
+
+    keybindings = [
+      # commenting out for now because this breaks vim in terminal. need to find a fix
+      # {
+      #   key = "escape";
+      #   command = "workbench.action.focusActiveEditorGroup";
+      #   when = "!editorTextFocus";
+      # }
+    ];
   };
 
   programs.starship = {
@@ -297,12 +324,12 @@
     bat
     gh
     nerdfonts
+    # TODO: https://github.com/tummychow/git-absorb
     git-machete
     neofetch
     obsidian
     postgresql
     jq
-    fzf
     ripgrep
     wget
 
@@ -325,7 +352,10 @@
 
     # py
     python3
-  ];
+  ] ++ (with unstable; [
+    # need unstable for $FZF_PROMPT in 0.46.0
+    fzf
+  ]);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

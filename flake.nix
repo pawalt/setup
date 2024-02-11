@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -41,6 +42,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     nix-darwin,
     nixos-apple-silicon,
@@ -50,6 +52,7 @@
   }: {
     darwinConfigurations = let
       system = "aarch64-darwin";
+      unstable = import nixpkgs-unstable {inherit system;};
     in {
       "crlMBP-YV7QQ65WX2MzYw" = nix-darwin.lib.darwinSystem {
         inherit system;
@@ -70,6 +73,8 @@
                 ./homes/darwin.nix
               ];
             };
+
+            home-manager.extraSpecialArgs = {inherit unstable;};
           }
         ];
       };
@@ -93,14 +98,20 @@
                 ./homes/darwin.nix
               ];
             };
+
+            home-manager.extraSpecialArgs = {inherit unstable;};
           }
         ];
       };
     };
 
-    nixosConfigurations = {
+    nixosConfigurations = let
+      system = "aarch64-linux";
+      unstable = import nixpkgs-unstable {inherit system;};
+    in {
       macbox = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
+        inherit system;
+
         specialArgs = { inherit agenix; };
         modules = [
           nixos-apple-silicon.nixosModules.apple-silicon-support
@@ -131,6 +142,8 @@
                 ./homes/asahi.nix
               ];
             };
+
+            home-manager.extraSpecialArgs = {inherit unstable;};
           }
         ];
       };
