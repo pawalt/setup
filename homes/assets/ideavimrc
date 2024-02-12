@@ -24,6 +24,7 @@ map <Space>pp <Action>(GotoPreviousError)
 map <Space>rc <Action>(RunClass)
 map <Space>rr <Action>(RerunFailedTests)
 map <Space>re <Action>(Rerun)
+map <Space>rd <Action>(DebugClass)
 
 " code manipulation
 map <Space>cr <Action>(Refactorings.QuickListPopupAction)
