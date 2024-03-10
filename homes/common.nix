@@ -84,6 +84,7 @@ in
       redhat.vscode-yaml
       ms-azuretools.vscode-docker
       bbenoist.nix
+      ms-vscode-remote.remote-ssh
 
       # i dont like python
       ms-python.vscode-pylance
@@ -255,6 +256,7 @@ in
         p = "ping";
         pg = "ping google.com";
         p8 = "ping 8.8.8.8";
+        ssh = "kitty +kitten ssh";
 
         cat = "bat -P --style=plain";
 
@@ -273,7 +275,8 @@ in
         upd = "git commit --amend --no-edit && git push -f";
 
         gc = "git checkout";
-        gpi = "git checkout $(git branch | fzf)";
+        gp = "git push";
+        gcf = "git checkout $(git branch | fzf)";
 
         gm = "git machete";
 
