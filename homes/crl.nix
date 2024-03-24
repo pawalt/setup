@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ... }: let
+  gdk = pkgs.google-cloud-sdk.withExtraComponents( with pkgs.google-cloud-sdk.components; [
+    gke-gcloud-auth-plugin
+  ]);
+in
 
 {
   # PROGRAM CONFIG
@@ -22,7 +26,7 @@
   programs.zsh = {
     # we use rancher at work
     initExtra = '' 
-      export PATH=$HOME/.rd/bin:$HOME/go/src/github.com/cockroachlabs/managed-service/bin:$PATH
+      export PATH=$HOME/.rd/bin:$HOME/go/src/github.com/cockroachlabs/managed-service/bin:$HOME/bin:$PATH
     '';
 
     shellAliases = {
@@ -30,7 +34,7 @@
     };
   };
 
-  home.packages = with pkgs; [
-    google-cloud-sdk
+  home.packages = [
+    gdk
   ];
 }
