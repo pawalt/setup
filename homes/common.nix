@@ -18,52 +18,22 @@ in
 
     plugins = with pkgs.vimPlugins; [
       gruvbox
-      nerdtree
       vim-airline
       auto-pairs
       vim-devicons
+
+      # he's serving
+      nvim-lspconfig.withAllGrammars
+      nvim-cmp
+      lsp-zero-nvim
+
+      # 🔭
+      telescope-nvim
+      telescope-file-browser-nvim
     ];
 
     extraConfig = ''
-      syntax enable
-      colorscheme gruvbox
-      set background=dark
-
-      set clipboard=unnamedplus
-
-      " Airline symbols
-      let g:airline_powerline_fonts = 1
-
-      set tabstop=2
-      set shiftwidth=2
-      set expandtab
-
-      "" Nerdtree CONFIG
-      
-      " auto-open if no args are set
-      autocmd VimEnter * if !argc() | NERDTree | endif
-      " close if only window left
-      autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-      " Nerdtree tab configuration
-      function! IsNerdTreeEnabled()
-        return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
-      endfunction
-      function! TreeTab()
-        if IsNerdTreeEnabled()
-          execute 'tabe'
-          execute 'NERDTreeMirror'
-        else
-          execute 'tabe'
-        endif
-      endfu
-      nnoremap <Space>t :call TreeTab()<CR>
-
-      " navigation
-      nnoremap <Space>j <C-W><C-J>
-      nnoremap <Space>h <C-W><C-H>
-      nnoremap <Space>k <C-W><C-K>
-      nnoremap <Space>l <C-W><C-L>
+      lua dofile("${scriptsPath}/nvim.lua")
     '';
   };
 
@@ -296,7 +266,17 @@ in
       git checkout $main_branch && git pull && git checkout $cur_branch
     }
 
-    neofetch
+    # say my name baby
+    name=$(whoami | figlet)
+    underline=$(echo "$name" | awk 'length > max_length { max_length = length } END { for(i = 1; i <= max_length; i++) printf "_"; print "" }')
+    tput bold
+    tput setaf 3
+    echo "$underline"
+    tput setaf 6
+    echo "$name"
+    tput setaf 3
+    echo "$underline"
+    tput sgr0
     '';
 
     zplug = {
@@ -339,6 +319,7 @@ in
     jq
     ripgrep
     wget
+    fd
 
     # make lol
     gnumake
