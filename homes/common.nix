@@ -17,14 +17,24 @@ in
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      gruvbox
+      # looking pretty
+      nvim-treesitter.withAllGrammars
+      gruvbox-material
       vim-airline
-      auto-pairs
       vim-devicons
 
-      # he's serving
-      nvim-lspconfig.withAllGrammars
+      # niceties
+      auto-pairs
+      guess-indent-nvim
+
+      # testing
+      vim-test
+
+      # lsps and autocomplete
+      nvim-lspconfig
       nvim-cmp
+      luasnip
+      cmp-nvim-lsp
       lsp-zero-nvim
 
       # 🔭
@@ -294,7 +304,7 @@ in
 
   programs.kitty = {
     enable = true;
-    
+
     shellIntegration = {
       mode = "no-cursor";
       enableZshIntegration = true;
